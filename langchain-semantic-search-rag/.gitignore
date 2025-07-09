@@ -1,0 +1,10 @@
+
+# Documentation directory
+./docs/
+
+# Cache files
+*cache.json
+cache/*.json
+.cache/*.json
+**/cache/
+**/*-cache.json
