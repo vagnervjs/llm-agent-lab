@@ -1,0 +1,14 @@
+{
+  "name": "langbase-agentic-rag",
+  "version": "1.0.0",
+  "description": "A knowledge-based AI assistant built with LangBase that demonstrates how to create a reliable, citation-aware AI system using semantic memory and retrieval-augmented generation (RAG).",
+  "main": "index.js",
+  "keywords": ["langbase", "ai", "rag", "semantic-search", "chatbot", "knowledge-base"],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.0.1",
+    "langbase": "^1.1.65"
+  }
+}
