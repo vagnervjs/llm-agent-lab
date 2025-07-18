@@ -1,20 +1,35 @@
 {
-  "name": "langchain-semantic-search",
+  "name": "langchain-semantic-search-rag",
   "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
+  "description": "Retrieval-Augmented Generation (RAG) system with semantic search, persistent embeddings caching, and CLI support built with LangChain",
+  "license": "MIT",
   "author": "",
   "type": "module",
-  "main": "index.js",
+  "main": "index.ts",
+  "keywords": [
+    "langchain",
+    "rag",
+    "semantic-search",
+    "embeddings",
+    "openai",
+    "pdf",
+    "nlp",
+    "vector-search"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx tsx index.ts"
+    "start": "npx tsx index.ts",
+    "dev": "npx tsx index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@langchain/community": "^0.3.48",
     "@langchain/core": "^0.3.62",
     "@langchain/openai": "^0.5.18",
+    "dotenv": "^16.4.5",
     "langchain": "^0.3.29",
     "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
   }
 }

@@ -9,7 +9,9 @@ A **Retrieval-Augmented Generation (RAG)** system built with LangChain that demo
 - **💾 Persistent Embeddings Cache** - Save embeddings to JSON file to avoid repeated API calls
 - **🎯 MMR Retrieval** - Maximal Marginal Relevance algorithm for diverse, relevant results
 - **⚡ Fast Startup** - Instant loading from cached embeddings on subsequent runs
-- **🛠️ Easy Configuration** - All settings in constants for easy modification
+- **🛠️ Easy Configuration** - All settings centralized in config.ts for easy modification
+- **🎯 CLI Support** - Run with custom questions via command line arguments
+- **📦 Modular Architecture** - Clean separation of concerns with dedicated modules
 - **📚 Well Documented** - Clear code structure with comprehensive comments
 
 ## 🏗️ Architecture
@@ -21,11 +23,12 @@ User Question → Document Retrieval → Context Generation → LLM Response
 ```
 
 ### Key Components:
-1. **Document Loader** - Loads PDF and splits into chunks
-2. **Embedding Generator** - Creates vector representations (cached after first run)
-3. **Vector Store** - Stores and searches embeddings efficiently
-4. **Retriever** - Finds most relevant document chunks
-5. **LLM Chain** - Generates answers using retrieved context
+1. **Document Loader** (`vectorStore.ts`) - Loads PDF and splits into chunks
+2. **Embedding Generator** (`vectorStore.ts`) - Creates vector representations (cached after first run)
+3. **Vector Store** (`vectorStore.ts`) - Stores and searches embeddings efficiently
+4. **Configuration** (`config.ts`) - Centralized settings and parameters
+5. **RAG Pipeline** (`index.ts`) - Main retrieval and generation logic
+6. **CLI Interface** (`index.ts`) - Command-line question processing
 
 ## 📦 Installation
 
@@ -37,7 +40,7 @@ User Question → Document Retrieval → Context Generation → LLM Response
 
 1. **Clone and navigate to project:**
 ```bash
-cd playground/llm-agent-lab/langchain-semantic-search
+cd playground/llm-agent-lab/langchain-semantic-search-rag
 ```
 
 2. **Install dependencies:**
@@ -138,10 +141,17 @@ export const QUESTION = "Nike's revenue in 2023?";
 ## 🔧 Advanced Configuration
 
 ### Chunking Strategy
+Configure in `config.ts`:
+```typescript
+export const CHUNK_SIZE = 1000; // Size of each chunk
+export const CHUNK_OVERLAP = 200; // Overlap between chunks to preserve context
+```
+
+Used in `vectorStore.ts`:
 ```typescript
 const splits = await new RecursiveCharacterTextSplitter({
-  chunkSize: 1000,     // Size of each chunk
-  chunkOverlap: 200,   // Overlap between chunks
+  chunkSize: CHUNK_SIZE,
+  chunkOverlap: CHUNK_OVERLAP,
 }).splitDocuments(docs);
 ```
 
@@ -152,6 +162,17 @@ const splits = await new RecursiveCharacterTextSplitter({
 ### Model Options
 - **Embeddings**: `text-embedding-3-large`, `text-embedding-3-small`, `text-embedding-ada-002`
 - **Chat**: `gpt-4`, `gpt-4-turbo`, `gpt-3.5-turbo`
+
+### Module Structure
+- **`config.ts`** - All configuration constants in one place
+- **`vectorStore.ts`** - Vector store creation, caching, and PDF processing
+- **`index.ts`** - Main RAG pipeline and CLI interface
+
+Benefits:
+- Single source of truth for configuration
+- Reusable vector store module
+- Clean separation of concerns
+- Easy to maintain and extend
 
 ## 💡 How Caching Works
 
@@ -217,21 +238,29 @@ npx tsx index.ts
 ## 🔗 Dependencies
 
 ### Core Dependencies
-- `@langchain/openai` - OpenAI integration
-- `@langchain/community` - Document loaders
-- `langchain` - Core LangChain functionality
+- `@langchain/openai` - OpenAI integration and embeddings
+- `@langchain/community` - Document loaders (PDF support)
+- `@langchain/core` - Core LangChain abstractions
+- `langchain` - Main LangChain framework
 - `dotenv` - Environment variable management
+- `pdf-parse` - PDF parsing functionality
+
+### Development Dependencies
+- `tsx` - TypeScript execution engine
 
 ### File Structure
 ```
-langchain-semantic-search/
-├── index.ts              # Main RAG implementation
-├── package.json          # Dependencies
-├── README.md            # This file
-├── .env                 # Environment variables
+langchain-semantic-search-rag/
+├── index.ts              # Main RAG pipeline and CLI interface
+├── vectorStore.ts        # Vector store management and caching
+├── config.ts             # Configuration constants
+├── package.json          # Dependencies and scripts
+├── README.md            # Documentation
+├── .gitignore           # Git ignore rules
+├── .env                 # Environment variables (create this)
 ├── docs/                # Document storage
-│   └── nke-10k-2023.pdf
-└── embeddings-cache.json # Generated cache file
+│   └── nke-10k-2023.pdf # Example PDF document
+└── embeddings-cache.json # Generated embeddings cache
 ```
 
 ## 🚀 Next Steps
