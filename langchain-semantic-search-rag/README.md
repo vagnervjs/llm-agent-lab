@@ -61,15 +61,40 @@ mkdir -p docs
 
 ### Basic Usage
 
+Run with the default question:
 ```bash
-npm run dev
-# or
 npx tsx index.ts
+```
+
+Run with a custom question:
+```bash
+npx tsx index.ts "What are Nike's main business segments?"
+```
+
+Run with multi-word questions (use quotes):
+```bash
+npx tsx index.ts "How did Nike's revenue change from 2022 to 2023?"
+```
+
+### Example Questions
+
+```bash
+# Financial information
+npx tsx index.ts "What was Nike's net income in 2023?"
+
+# Business operations
+npx tsx index.ts "What are Nike's key growth strategies?"
+
+# Risk factors
+npx tsx index.ts "What are the main risks Nike faces?"
+
+# Market analysis
+npx tsx index.ts "How does Nike compete in the marketplace?"
 ```
 
 ### First Run (Creates Embeddings)
 ```
-Creating new embeddings...
+Creating new embeddings from: ./docs/nke-10k-2023.pdf
 ✅ Embeddings cached!
 Question: Nike's revenue in 2023?
 Documents retrieved: 3; Context length: 2847
@@ -80,30 +105,34 @@ Answer: Nike's revenue in fiscal 2023 was $51.2 billion...
 ```
 Loading cached embeddings...
 ✅ Cached embeddings loaded!
-Question: Nike's revenue in 2023?
+Question: What are Nike's main business segments?
 Documents retrieved: 3; Context length: 2847
-Answer: Nike's revenue in fiscal 2023 was $51.2 billion...
+Answer: Nike operates through several main business segments...
 ```
 
 ## ⚙️ Configuration
 
-All settings are configurable via constants at the top of `index.ts`:
+All settings are configurable in `config.ts`:
 
 ```typescript
-// Models
-const EMBEDDINGS_MODEL = "text-embedding-3-large";
-const CHAT_MODEL = "gpt-4.1";
+// Model configurations
+export const EMBEDDINGS_MODEL = "text-embedding-3-large";
+export const CHAT_MODEL = "gpt-4.1";
 
 // File paths
-const PDF_FILE = './docs/nke-10k-2023.pdf';
-const CACHE_FILE = './embeddings-cache.json';
+export const PDF_FILE = './docs/nke-10k-2023.pdf';
+export const CACHE_FILE = './embeddings-cache.json';
 
 // Search parameters
-const SEARCH_TYPE = "mmr"; // Options: "mmr", "similarity"
-const K = 3; // Number of documents to retrieve
+export const SEARCH_TYPE = "mmr"; // Options: "mmr", "similarity"
+export const K = 3; // Number of documents to retrieve
 
-// User Input
-const QUESTION = "Nike's revenue in 2023?";
+// Document processing parameters
+export const CHUNK_SIZE = 1000; // Size of each chunk
+export const CHUNK_OVERLAP = 200; // Overlap between chunks to preserve context
+
+// Default question (used when no CLI argument provided)
+export const QUESTION = "Nike's revenue in 2023?";
 ```
 
 ## 🔧 Advanced Configuration

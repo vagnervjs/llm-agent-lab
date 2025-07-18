@@ -6,6 +6,7 @@ A collection of experiments and prototypes exploring AI agents and LLM applicati
 
 - **LangBase Agentic RAG** - Knowledge-based AI assistant with semantic memory and retrieval-augmented generation, powered by serverless LangBase
 - **LangChain LLM Chat** - Simple chat interface using LangChain and OpenAI LLM models
+- **LangChain Semantic Search RAG** - Retrieval-augmented generation system with semantic search, persistent embeddings caching, and document processing capabilities
 
 ## 🛠️ Technologies
 
