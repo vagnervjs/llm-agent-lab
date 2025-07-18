@@ -12,7 +12,4 @@ export const K = 3; // Number of documents to retrieve
 
 // Document processing parameters
 export const CHUNK_SIZE = 1000; // Size of each chunk
-export const CHUNK_OVERLAP = 200; // Overlap between chunks to preserve context
-
-// User Input
-export const QUESTION = "Nike's revenue in 2023?"; 
+export const CHUNK_OVERLAP = 200; // Overlap between chunks to preserve context 
